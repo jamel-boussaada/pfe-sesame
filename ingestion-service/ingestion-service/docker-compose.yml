@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # Database Service
+  postgres:
+    image: postgres:latest
+    container_name: codeguardian-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: codeguardian
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # RabbitMQ Service
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: codeguardian-mq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
+volumes:
+  postgres_data:
